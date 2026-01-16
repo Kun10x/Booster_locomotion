@@ -1,8 +1,8 @@
-# Template for Isaac Lab Projects
+# BOOSTER LOCOMOTION Training in IsaacLab
 
 ## Overview
 
-This project/repository serves as a template for building projects or extensions based on Isaac Lab.
+This repository serves as a template for building projects or extensions based on Isaac Lab.
 It allows you to develop in an isolated environment, outside of the core Isaac Lab repository.
 
 **Key Features:**
