@@ -1,6 +1,6 @@
 # booster_rough_env_cfg.py
 # Full working Booster T1 rough locomotion config (G1-aligned) with regex-safe terms.
-
+import math
 from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.utils import configclass
 
@@ -26,18 +26,18 @@ class BoosterRewards(RewardsCfg):
     track_lin_vel_xy_exp = RewTerm(
         func=mdp.track_lin_vel_xy_yaw_frame_exp,
         weight=1.0,
-        params={"command_name": "base_velocity", "std": 0.5},
+        params={"command_name": "base_velocity", "std": math.sqrt(0.25)},
     )
 
     track_ang_vel_z_exp = RewTerm(
         func=mdp.track_ang_vel_z_world_exp,
         weight=2.0,
-        params={"command_name": "base_velocity", "std": 0.5},
+        params={"command_name": "base_velocity", "std": math.sqrt(0.25)},
     )
 
     feet_air_time = RewTerm(
         func=mdp.feet_air_time_positive_biped,
-        weight=0.25,
+        weight=2.0,
         params={
             "command_name": "base_velocity",
             # Use the class directly since it's imported
@@ -45,10 +45,14 @@ class BoosterRewards(RewardsCfg):
             "threshold": 0.4,
         },
     )
-
+    # -- penalties
+    lin_vel_z_l2 = RewTerm(func=mdp.lin_vel_z_l2, weight=-2.0)
+    ang_vel_xy_l2 = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05)
+    joint_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)
+    action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.01)
     feet_slide = RewTerm(
         func=mdp.feet_slide,
-        weight=-0.1,
+        weight=-0.25,
         params={
             "sensor_cfg": SceneEntityCfg("contact_forces", body_names="Ankle_Cross_(Left|Right)"), # Use existing link names
             "asset_cfg": SceneEntityCfg("robot", body_names="Ankle_Cross_(Left|Right)"),
