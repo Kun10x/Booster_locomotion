@@ -183,7 +183,7 @@ print(f'{K1_ACTION_SCALE=}')
 BOOSTER_T1_CFG = ArticulationCfg(
     spawn=sim_utils.UrdfFileCfg(
         fix_base=False,
-        asset_path=f"{BOOSTER_ASSETS_DIR}/robots/T1/T1_locomotion.urdf",
+        asset_path=f"{BOOSTER_ASSETS_DIR}/robots/T1/T1_23dof.urdf",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
@@ -204,11 +204,11 @@ BOOSTER_T1_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.70),
         joint_pos={
-            # ".*_Shoulder_Pitch": 0.2,
-            # "Left_Shoulder_Roll": -1.3,
-            # "Right_Shoulder_Roll": 1.3,
-            # "Left_Elbow_Yaw": -0.5,
-            # "Right_Elbow_Yaw": 0.5,
+            ".*_Shoulder_Pitch": 0.2,
+            "Left_Shoulder_Roll": -1.3,
+            "Right_Shoulder_Roll": 1.3,
+            "Left_Elbow_Yaw": -0.5,
+            "Right_Elbow_Yaw": 0.5,
             ".*_Hip_Pitch": -0.2,
             ".*_Knee_Pitch": 0.4,
             ".*_Ankle_Pitch": -0.2,
@@ -217,52 +217,52 @@ BOOSTER_T1_CFG = ArticulationCfg(
     ),
     soft_joint_pos_limit_factor=0.9,
     actuators={
-        # "arms": ImplicitActuatorCfg(
-        #     joint_names_expr=[
-        #         ".*_Shoulder_Pitch",
-        #         ".*_Shoulder_Roll",
-        #         ".*_Elbow_Pitch",
-        #         ".*_Elbow_Yaw",
-        #     ],
-        #     effort_limit_sim={
-        #         ".*_Shoulder_Pitch": 18.0,
-        #         ".*_Shoulder_Roll": 18.0,
-        #         ".*_Elbow_Pitch": 18.0,
-        #         ".*_Elbow_Yaw": 18.0,
-        #     },
-        #     velocity_limit_sim={
-        #         ".*_Shoulder_Pitch": 7.33,
-        #         ".*_Shoulder_Roll": 7.33,
-        #         ".*_Elbow_Pitch": 7.33,
-        #         ".*_Elbow_Yaw": 7.33,
-        #     },
-        #     stiffness={
-        #         ".*_Shoulder_Pitch": 50.,
-        #         ".*_Shoulder_Roll": 50.,
-        #         ".*_Elbow_Pitch": 50.,
-        #         ".*_Elbow_Yaw": 50.,
-        #     },
-        #     damping={
-        #         ".*_Shoulder_Pitch": 1.,
-        #         ".*_Shoulder_Roll": 1.,
-        #         ".*_Elbow_Pitch": 1.,
-        #         ".*_Elbow_Yaw": 1.,
-        #     },
-        #     armature={
-        #         ".*_Shoulder_Pitch": ARMATURE_4310,
-        #         ".*_Shoulder_Roll": ARMATURE_4310,
-        #         ".*_Elbow_Pitch": ARMATURE_4310,
-        #         ".*_Elbow_Yaw": ARMATURE_4310,
-        #     },
-        # ),
-        # "waist": ImplicitActuatorCfg(
-        #     joint_names_expr=["Waist"],
-        #     effort_limit_sim=25.0,
-        #     velocity_limit_sim=12.57,
-        #     stiffness=200.,
-        #     damping=5.,
-        #     armature=ARMATURE_6408,
-        # ),
+        "arms": ImplicitActuatorCfg(
+            joint_names_expr=[
+                ".*_Shoulder_Pitch",
+                ".*_Shoulder_Roll",
+                ".*_Elbow_Pitch",
+                ".*_Elbow_Yaw",
+            ],
+            effort_limit_sim={
+                ".*_Shoulder_Pitch": 18.0,
+                ".*_Shoulder_Roll": 18.0,
+                ".*_Elbow_Pitch": 18.0,
+                ".*_Elbow_Yaw": 18.0,
+            },
+            velocity_limit_sim={
+                ".*_Shoulder_Pitch": 7.33,
+                ".*_Shoulder_Roll": 7.33,
+                ".*_Elbow_Pitch": 7.33,
+                ".*_Elbow_Yaw": 7.33,
+            },
+            stiffness={
+                ".*_Shoulder_Pitch": 50.,
+                ".*_Shoulder_Roll": 50.,
+                ".*_Elbow_Pitch": 50.,
+                ".*_Elbow_Yaw": 50.,
+            },
+            damping={
+                ".*_Shoulder_Pitch": 1.,
+                ".*_Shoulder_Roll": 1.,
+                ".*_Elbow_Pitch": 1.,
+                ".*_Elbow_Yaw": 1.,
+            },
+            armature={
+                ".*_Shoulder_Pitch": ARMATURE_4310,
+                ".*_Shoulder_Roll": ARMATURE_4310,
+                ".*_Elbow_Pitch": ARMATURE_4310,
+                ".*_Elbow_Yaw": ARMATURE_4310,
+            },
+        ),
+        "waist": ImplicitActuatorCfg(
+            joint_names_expr=["Waist"],
+            effort_limit_sim=25.0,
+            velocity_limit_sim=12.57,
+            stiffness=200.,
+            damping=5.,
+            armature=ARMATURE_6408,
+        ),
         "legs": ImplicitActuatorCfg(
             joint_names_expr=[
                 ".*_Hip_Pitch",
@@ -318,14 +318,14 @@ BOOSTER_T1_CFG = ArticulationCfg(
             damping=1.0,
             armature=2 * ARMATURE_4315,
         ),
-        # "head": DelayedImplicitActuatorCfg(
-        #     max_delay=8,
-        #     joint_names_expr=[".*Head.*"],
-        #     effort_limit_sim=7.0,
-        #     velocity_limit_sim=20.0,
-        #     stiffness=10.0,
-        #     damping=1.0,
-        #     armature=0.001,
-        # ),
+        "head": DelayedImplicitActuatorCfg(
+            max_delay=8,
+            joint_names_expr=[".*Head.*"],
+            effort_limit_sim=7.0,
+            velocity_limit_sim=20.0,
+            stiffness=10.0,
+            damping=1.0,
+            armature=0.001,
+        ),
     },
 )

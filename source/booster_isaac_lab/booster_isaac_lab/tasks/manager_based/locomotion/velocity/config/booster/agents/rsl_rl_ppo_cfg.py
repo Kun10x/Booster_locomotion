@@ -6,7 +6,7 @@ class BoosterRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 10000
     save_interval = 500
-    experiment_name = "booster_rough"
+    experiment_name = "booster_rough_pro"
     empirical_normalization = False
     
     policy = RslRlPpoActorCriticCfg(
@@ -23,7 +23,7 @@ class BoosterRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         entropy_coef = -0.01,
         num_learning_epochs = 5,
         num_mini_batches = 4,
-        learning_rate = 1.0e-5,
+        learning_rate = 1.0e-3,
         schedule = "adaptive",
         gamma = 0.995,
         lam = 0.95,
