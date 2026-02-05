@@ -121,8 +121,13 @@ class BoosterRoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.commands.base_velocity.ranges.lin_vel_y = (-0.0, 0.0)
         self.commands.base_velocity.ranges.ang_vel_z = (-1.0, 1.0)
 
-        # terminations
-        self.terminations.base_contact.params["sensor_cfg"].body_names = "Trunk"
+        # STRICTER TERMINATIONS
+        self.terminations.base_contact.params["sensor_cfg"].body_names = ["Trunk",
+                    "Waist", "AL1", "AL2", "AL3", "AR1", "AR2", "AR3","H1","H2",
+                    "Hip_Pitch_Left", "Hip_Roll_Left",
+                    "Hip_Pitch_Right", "Hip_Roll_Right",
+                ]
+
 
 
 

@@ -23,7 +23,7 @@ from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR, ISAACLAB_NUCLEUS_DIR
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
-import booster_isaac_lab.tasks.manager_based.locomotion.velocity.mdp as mdp
+import isaaclab_tasks.manager_based.locomotion.velocity.mdp as mdp
 
 ##
 # Pre-defined configs
@@ -90,7 +90,6 @@ class MySceneCfg(InteractiveSceneCfg):
 @configclass
 class CommandsCfg:
     """Command specifications for the MDP."""
-
 
     base_velocity = mdp.UniformVelocityCommandCfg(
         asset_name="robot",
@@ -280,14 +279,6 @@ class CurriculumCfg:
     """Curriculum terms for the MDP."""
 
     terrain_levels = CurrTerm(func=mdp.terrain_levels_vel)
-    # push force follows curriculum
-    push_force_levels = CurrTerm(func=mdp.modify_push_force,
-                                 params={"term_name": "push_robot", "max_velocity": [3.0, 3.0], "interval": 200 * 24,
-                                         "starting_step": 1500 * 24})
-    # command vel follows curriculum
-    command_vel = CurrTerm(func=mdp.modify_command_velocity,
-                           params={"term_name": "track_lin_vel_xy_exp", "max_velocity": [-1.5, 3.0],
-                                   "interval": 200 * 24, "starting_step": 5000 * 24})
 
 
 ##
